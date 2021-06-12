@@ -1,0 +1,6 @@
+.MuiStepIcon-root.MuiStepIcon-completed {
+    color: green !important;
+}
+.MuiStepLabel-label.MuiStepLabel-completed{
+    font-weight: bold !important;
+}
