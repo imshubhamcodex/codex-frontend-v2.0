@@ -4,3 +4,11 @@
 .MuiStepLabel-label.MuiStepLabel-completed{
     font-weight: bold !important;
 }
+
+div{
+    font-family: 'Roboto';
+}
+#org-head{
+    margin-left: 100px;
+
+}

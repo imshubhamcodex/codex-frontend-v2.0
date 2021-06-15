@@ -4,6 +4,9 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './styles/App.css';
 import Stepper from './components/Stepper';
 import ProviderTable from './components/ProviderTable';
+import ServiceTable from './components/ServiceTable';
+
+import Test from './components/test';
 
 function App() {
 	return (
@@ -12,12 +15,16 @@ function App() {
 				<Switch>
 					<Route exact={true} path="/">
 						<h1>This is home</h1>
+						<Test/>
 					</Route>
 					<Route exact={true} path="/process">
 						<Stepper />
 					</Route>
 					<Route exact={true} path="/table">
 						<ProviderTable />
+					</Route>
+					<Route exact={true} path="/s_table">
+						<ServiceTable />
 					</Route>
 				</Switch>
 				<br />
@@ -32,6 +39,9 @@ function App() {
 					</li>
 					<li>
 						<Link to="/table">PTable</Link>
+					</li>
+					<li>
+						<Link to="/s_table">S_Table</Link>
 					</li>
 				</ul>
 			</div>

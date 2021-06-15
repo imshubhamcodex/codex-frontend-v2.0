@@ -1,0 +1,30 @@
+div {
+	font-family: 'Roboto';
+}
+#provider-head {
+	margin-left: 0px;
+	margin-top: -50px;
+}
+.wrapper {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+.wrapper > div {
+	flex: 10%;
+}
+
+@media (max-width: 1400px) {
+	#ln-div {
+		margin-left: 150px;
+	}
+}
+
+@media (max-width: 1200px) {
+	#btw-div {
+		margin-left: -170px;
+	}
+	#ln-div {
+		margin-left: 70px;
+	}
+}

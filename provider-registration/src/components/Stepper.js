@@ -8,6 +8,9 @@ import Typography from '@material-ui/core/Typography';
 
 import '../styles/Stepper.css';
 
+import OrgBox from './OrgBox';
+import ProviderBox from './ProviderBox';
+
 const useStyles = makeStyles((theme) => ({
 	root: {
 		width: '100%',
@@ -28,13 +31,29 @@ function getSteps() {
 function getStepContent(step) {
 	switch (step) {
 		case 0:
-			return 'Select campaign settings...';
+			return (
+				<div style={{ width: '100%' }}>
+					<br />
+					<br />
+					<h3 id="org-head">
+						Get started with your <strong>name and location</strong>
+					</h3>
+					<br />
+					<div className="text-center">
+						<OrgBox />
+					</div>
+				</div>
+			);
 		case 1:
-			return 'What is an ad group anyways?';
+			return (
+				<div>
+					<ProviderBox />
+				</div>
+			);
 		case 2:
 			return (
 				<div>
-					<h1>This is the bit I really care about!</h1>
+					<h1>Service Table</h1>
 				</div>
 			);
 		case 3:

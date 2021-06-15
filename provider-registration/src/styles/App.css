@@ -1,3 +1,40 @@
 .App {
 	text-align: center;
 }
+
+.MuiOutlinedInput-input {
+	margin-top: -5px !important;
+}
+.t-label1 {
+	margin-bottom: -15px !important;
+	width: 100% !important;
+	margin-left: -150px !important;
+}
+.t-label2 {
+	margin-bottom: -15px !important;
+	width: 100% !important;
+	margin-left: -144px !important;
+}
+
+p {
+	font-family: 'Roboto';
+}
+
+
+@media(max-width:550px){
+	.t-label1{
+		margin-left: -80px !important;
+	}
+	.t-label2{
+		margin-left: -80px !important;
+	}
+}
+@media(max-width:385px){
+	.t-label1{
+		margin-left: -60px !important;
+	}
+	.t-label2{
+		margin-left: -60px !important;
+	}
+}
+
