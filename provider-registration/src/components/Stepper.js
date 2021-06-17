@@ -10,6 +10,7 @@ import '../styles/Stepper.css';
 
 import OrgBox from './OrgBox';
 import ProviderBox from './ProviderBox';
+import ServiceBox from './ServiceBox';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -53,7 +54,7 @@ function getStepContent(step) {
 		case 2:
 			return (
 				<div>
-					<h1>Service Table</h1>
+					<ServiceBox />
 				</div>
 			);
 		case 3:
