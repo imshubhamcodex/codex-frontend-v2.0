@@ -12,6 +12,9 @@ import { useState } from 'react';
 import '../styles/ProviderBox.css';
 import ProviderTable from './ProviderTable';
 
+import store from '../store/store';
+import * as actions from '../store/actionTypes';
+
 const useStyles = makeStyles((theme) => ({
 	root: {
 		flexGrow: 1,
@@ -31,9 +34,50 @@ const useStyles = makeStyles((theme) => ({
 export default function FullWidthGrid() {
 	const classes = useStyles();
 	const [gender, setGender] = useState('M');
+	const [fname, setFname] = useState('');
+	const [lname, setLname] = useState('');
+	const [email, setEmail] = useState('');
+	const [mobile, setMobile] = useState('');
+	const [pushID, setPushID] = useState('');
 
 	const handleChange = (event) => {
 		setGender(event.target.value);
+	};
+
+	const handleFname = (e) => {
+		setFname(e.target.value);
+	};
+	const handleLname = (e) => {
+		setLname(e.target.value);
+	};
+	const handleEmail = (e) => {
+		setEmail(e.target.value);
+	};
+	const handleMobile = (e) => {
+		setMobile(e.target.value);
+	};
+	const handleAdd = () => {
+		let provider = {
+			name: fname + ' ' + lname,
+			id: Math.floor(100000 + Math.random() * 90000).toString(),
+			gender: gender === 'M' ? 'Male' : 'Female',
+			mobile: mobile,
+			email: email,
+		};
+
+		let providers = store.getState().providers;
+		providers.unshift(provider);
+
+		store.dispatch({
+			type: actions.ADD_PROVIDER,
+			payload: {
+				new_providers: providers,
+			},
+		});
+
+		setPushID({
+			pushID: Math.random(),
+		});
 	};
 
 	return (
@@ -48,12 +92,12 @@ export default function FullWidthGrid() {
 						<div className="wrapper">
 							<div>
 								<p>Provider's Name</p>
-								<TextField placeholder="First Name" variant="outlined" />
+								<TextField placeholder="First Name" variant="outlined" onChange={handleFname} />
 							</div>
 							{/* <div id="btw-div"></div> */}
 							<div id="ln-div">
 								<p>&nbsp;</p>
-								<TextField placeholder="Last Name" variant="outlined" />
+								<TextField placeholder="Last Name" variant="outlined" onChange={handleLname} />
 							</div>
 						</div>
 					</Grid>
@@ -64,6 +108,7 @@ export default function FullWidthGrid() {
 							type="number"
 							placeholder="Mobile Number"
 							variant="outlined"
+							onChange={handleMobile}
 						/>
 					</Grid>
 					<Grid item xs={12} sm={6}>
@@ -73,6 +118,7 @@ export default function FullWidthGrid() {
 							type="email"
 							placeholder="Email Address"
 							variant="outlined"
+							onChange={handleEmail}
 						/>
 					</Grid>
 					<Grid item xs={12} sm={6}>
@@ -85,14 +131,31 @@ export default function FullWidthGrid() {
 						</FormControl>
 					</Grid>
 					<Grid item xs={12} sm={6}>
-						<Button style={{ width: '100%' }} variant="contained" size="large" color="primary">
+						<Button
+							onClick={handleAdd}
+							style={{ width: '100%' }}
+							variant="contained"
+							size="large"
+							color="primary"
+							disabled={
+								!Boolean(
+									fname.length > 0 &&
+										lname.length > 0 &&
+										email.length > 0 &&
+										mobile.length == 10 &&
+										/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+											email
+										)
+								)
+							}
+						>
 							ADD PROVIDER
 						</Button>
 					</Grid>
 				</Grid>
 			</div>
 			<div style={{ width: '90%', margin: 'auto auto', display: 'block' }}>
-				<ProviderTable />
+				<ProviderTable flow={pushID} />
 			</div>
 		</div>
 	);

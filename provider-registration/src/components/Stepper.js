@@ -4,13 +4,14 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 
 import '../styles/Stepper.css';
 
 import OrgBox from './OrgBox';
 import ProviderBox from './ProviderBox';
 import ServiceBox from './ServiceBox';
+import ServiceTable from './ServiceTable';
+import ProviderTable from './ProviderTable';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -30,6 +31,8 @@ function getSteps() {
 }
 
 function getStepContent(step) {
+	document.body.scrollTop = 0;
+	document.documentElement.scrollTop = 0;
 	switch (step) {
 		case 0:
 			return (
@@ -58,7 +61,21 @@ function getStepContent(step) {
 				</div>
 			);
 		case 3:
-			return <h1>Conf</h1>;
+			return (
+				<div style={{ width: '90%', margin: 'auto auto', display: 'block' }}>
+					<h3 style = {{marginTop:"60px"}}>
+					Confirm<strong> Details</strong>
+					</h3>
+					<br></br>
+					<ProviderTable />
+					<br></br>
+					<br></br>
+					<hr></hr>
+					<br></br>
+					<br></br>
+					<ServiceTable />
+				</div>
+			);
 		default:
 			return 'Unknown step';
 	}
@@ -89,8 +106,9 @@ export default function HorizontalLinearStepper() {
 		setActiveStep((prevActiveStep) => prevActiveStep - 1);
 	};
 
-	const handleReset = () => {
-		setActiveStep(0);
+	const handleSubmit = () => {
+		// setActiveStep(0);
+		// Show congo page
 	};
 
 	return (
@@ -110,10 +128,7 @@ export default function HorizontalLinearStepper() {
 			<div>
 				{activeStep === steps.length ? (
 					<div>
-						<Typography className={classes.instructions}>
-							All steps completed - you&apos;re finished
-						</Typography>
-						<Button onClick={handleReset} className={classes.button}>
+						<Button onClick={handleSubmit} className={classes.button}>
 							Reset
 						</Button>
 					</div>

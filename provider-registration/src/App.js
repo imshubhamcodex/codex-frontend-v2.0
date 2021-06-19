@@ -5,6 +5,7 @@ import './styles/App.css';
 import Stepper from './components/Stepper';
 import ProviderTable from './components/ProviderTable';
 import ServiceTable from './components/ServiceTable';
+import Home from './components/congratulation';
 
 import Test from './components/test';
 
@@ -15,8 +16,8 @@ function App() {
 			<div>
 				<Switch>
 					<Route exact={true} path="/">
-						<h1>This is home</h1>
-						<Test/>
+						<Home />
+						{/* <Test/> */}
 					</Route>
 					<Route exact={true} path="/process">
 						<Stepper />
