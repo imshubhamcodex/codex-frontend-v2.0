@@ -9,7 +9,7 @@ async function setRates() {
 	for (let i = 0; i < state.services.length; i++) {
 		let service = state.services[i];
 		let obj = {
-			id: Math.Floor(Math.random() * 100 + 100),
+			id: parseInt(Math.random() * 100 + 100),
 			organization_id: parseInt(service.orgID),
 			rate: parseFloat(service.actualPrice),
 			service_id: parseInt(service.id),
