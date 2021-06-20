@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -6,12 +7,16 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 
 import '../styles/Stepper.css';
+import store from '../store/store';
 
+import Congo from './congratulation';
 import OrgBox from './OrgBox';
 import ProviderBox from './ProviderBox';
 import ServiceBox from './ServiceBox';
 import ServiceTable from './ServiceTable';
 import ProviderTable from './ProviderTable';
+
+import setOrganization from '../services/setOrg';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -31,8 +36,6 @@ function getSteps() {
 }
 
 function getStepContent(step) {
-	document.body.scrollTop = 0;
-	document.documentElement.scrollTop = 0;
 	switch (step) {
 		case 0:
 			return (
@@ -63,8 +66,8 @@ function getStepContent(step) {
 		case 3:
 			return (
 				<div style={{ width: '90%', margin: 'auto auto', display: 'block' }}>
-					<h3 style = {{marginTop:"60px"}}>
-					Confirm<strong> Details</strong>
+					<h3 style={{ marginTop: '60px' }}>
+						Confirm<strong> Details</strong>
 					</h3>
 					<br></br>
 					<ProviderTable />
@@ -83,23 +86,39 @@ function getStepContent(step) {
 
 export default function HorizontalLinearStepper() {
 	const classes = useStyles();
+	const history = useHistory();
 	const [activeStep, setActiveStep] = React.useState(0);
-	const [skipped, setSkipped] = React.useState(new Set());
 	const steps = getSteps();
 
-	const isStepSkipped = (step) => {
-		return skipped.has(step);
-	};
-
 	const handleNext = () => {
-		let newSkipped = skipped;
-		if (isStepSkipped(activeStep)) {
-			newSkipped = new Set(newSkipped.values());
-			newSkipped.delete(activeStep);
-		}
-
 		setActiveStep((prevActiveStep) => prevActiveStep + 1);
-		setSkipped(newSkipped);
+		document.body.scrollTop = 0;
+		document.documentElement.scrollTop = 0;
+
+		if (activeStep === 3) {
+			console.log('Uploading data...');
+			const state = store.getState();
+
+			if (Object.keys(state.organization).length === 0) {
+				handleBack();
+				handleBack();
+				handleBack();
+				handleBack();
+
+				alert('Organization Detalis Requried');
+			} else if (state.providers.length <= 0) {
+				handleBack();
+				handleBack();
+				handleBack();
+				alert('Provider Detalis Requried');
+			} else if (state.services.length <= 0) {
+				handleBack();
+				handleBack();
+				alert('Services Detalis Requried');
+			} else {
+				setOrganization();
+			}
+		}
 	};
 
 	const handleBack = () => {
@@ -107,8 +126,10 @@ export default function HorizontalLinearStepper() {
 	};
 
 	const handleSubmit = () => {
-		// setActiveStep(0);
-		// Show congo page
+		history.push('/');
+		document.body.scrollTop = 0;
+		document.documentElement.scrollTop = 0;
+		window.location.reload();
 	};
 
 	return (
@@ -128,25 +149,63 @@ export default function HorizontalLinearStepper() {
 			<div>
 				{activeStep === steps.length ? (
 					<div>
-						<Button onClick={handleSubmit} className={classes.button}>
-							Reset
+						<Congo />
+						<Button
+							style={{
+								marginTop: '120px',
+								float: 'right',
+								marginRight: '120px',
+								backgroundColor: 'green',
+								color: '#fff',
+							}}
+							variant="contained"
+							onClick={handleSubmit}
+							className={classes.button}
+						>
+							Home
 						</Button>
 					</div>
 				) : (
 					<div>
 						<div>{getStepContent(activeStep)}</div>
 						<div>
-							<Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
-								Back
+							<Button
+								style={{
+									marginTop: '140px',
+									float: 'right',
+									marginRight: '120px',
+									color: '#fff',
+								}}
+								variant="contained"
+								color="primary"
+								onClick={handleNext}
+								className={classes.button}
+							>
+								{activeStep === steps.length - 1 ? 'Finish' : 'Next'}
 							</Button>
 
-							<Button variant="contained" color="primary" onClick={handleNext} className={classes.button}>
-								{activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+							<Button
+								style={{
+									marginTop: '140px',
+									float: 'right',
+									marginRight: '30px',
+								}}
+								variant="outlined"
+								color="primary"
+								disabled={activeStep === 0}
+								onClick={handleBack}
+								className={classes.button}
+							>
+								Back
 							</Button>
 						</div>
 					</div>
 				)}
 			</div>
+			<br />
+			<br />
+			<br />
+			<br />
 		</div>
 	);
 }

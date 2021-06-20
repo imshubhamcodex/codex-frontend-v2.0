@@ -63,17 +63,36 @@ export default function FullWidthGrid() {
 			gender: gender === 'M' ? 'Male' : 'Female',
 			mobile: mobile,
 			email: email,
+			orgID: store.getState().organization.id
 		};
 
 		let providers = store.getState().providers;
-		providers.unshift(provider);
 
-		store.dispatch({
-			type: actions.ADD_PROVIDER,
-			payload: {
-				new_providers: providers,
-			},
-		});
+		let dupEntry = false;
+
+		for (let i = 0; i < providers.length; i++) {
+			if (
+				providers[i].name === fname + ' ' + lname &&
+				providers[i].mobile === mobile &&
+				providers[i].email === email
+			) {
+				dupEntry = true;
+				break;
+			}
+		}
+
+		if (dupEntry) {
+			alert('Already Added');
+		} else {
+			providers.unshift(provider);
+
+			store.dispatch({
+				type: actions.ADD_PROVIDER,
+				payload: {
+					new_providers: providers,
+				},
+			});
+		}
 
 		setPushID({
 			pushID: Math.random(),
@@ -142,7 +161,7 @@ export default function FullWidthGrid() {
 									fname.length > 0 &&
 										lname.length > 0 &&
 										email.length > 0 &&
-										mobile.length == 10 &&
+										/^[6-9]\d{9}$/.test(mobile) &&
 										/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
 											email
 										)

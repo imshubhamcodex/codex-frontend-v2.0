@@ -1,20 +1,10 @@
 import * as actions from './actionTypes';
 
 let initial_state = {
-	providers: [
-		{ name: 'Andrew Adam', id: 'random-text11', gender: 'Male', mobile: '1234567890', email: 'andrew@hahaha' },
-		{ name: 'Andrew Adam', id: 'random-text22', gender: 'Female', mobile: '1234567890', email: 'andrew@hahaha' },
-		{ name: 'Andrew Adam', id: 'random-text32', gender: 'Female', mobile: '1234567890', email: 'andrew@hahaha' },
-		{ name: 'Andrew Adam', id: 'random-text42', gender: 'Female', mobile: '1234567890', email: 'andrew@hahaha' },
-		{ name: 'Andrew Adam', id: 'random-text52', gender: 'Female', mobile: '1234567890', email: 'andrew@hahaha' },
-	],
-	services: [{ name: 'service 1', id: 'ecg-2017-random', actualPrice: '100', discountedPrice: '12' }],
+	providers: [],
+	services: [],
 	organization: {},
-	definedServices: [
-		{ name: 'ECG', id: 'ecg-2017-random' },
-		{ name: 'X-ray', id: 'xray-2015-text' },
-		{ name: 'MRI scan', id: 'mri-2000-kilo' },
-	],
+	definedServices: [],
 	userType: null,
 };
 
@@ -47,7 +37,7 @@ function reducer(state = initial_state, action) {
 	} else if (action.type === actions.ADD_SERVICE) {
 		return {
 			...state,
-			providers: action.payload.new_services,
+			services: action.payload.new_services,
 		};
 	} else if (action.type === actions.DELETE_SERVICE) {
 		return {
@@ -58,6 +48,11 @@ function reducer(state = initial_state, action) {
 		return {
 			...state,
 			services: action.payload.edited_services,
+		};
+	} else if (action.type === actions.DEFINED_SERVICES) {
+		return {
+			...state,
+			definedServices: action.payload.services,
 		};
 	} else return state;
 }

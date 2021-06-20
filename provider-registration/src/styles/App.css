@@ -20,6 +20,12 @@ p {
 	font-family: 'Roboto';
 }
 
+body{
+	overflow-x: hidden;
+}
+html{
+	overflow-x: hidden;
+}
 
 @media(max-width:550px){
 	.t-label1{

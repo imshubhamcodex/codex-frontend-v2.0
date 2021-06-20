@@ -2,10 +2,13 @@ import React from 'react';
 
 import Grid from '@material-ui/core/Grid';
 
+import Loading from './loading'
+
 export default function done() {
 	return (
 		<div>
-			<Grid container spacing={1}>
+			<Loading />
+			<Grid id="congoGrid" style={{display:'none'}} container spacing={1}>
 				<Grid item xs={12} sm={12}>
 					<br />
 					<span className="black--text text-h5 dark-v" style={{ fontSize: '27px', marginLeft: '30px' }}>

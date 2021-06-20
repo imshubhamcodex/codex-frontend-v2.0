@@ -10,6 +10,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 
+
 import { useState } from 'react';
 
 import '../styles/ProviderBox.css';
@@ -71,6 +72,7 @@ export default function FullWidthGrid() {
 			id: service,
 			actualPrice: price,
 			discountedPrice: discount,
+			orgID: store.getState().organization.id
 		};
 
 		let services = store.getState().services;
@@ -104,7 +106,7 @@ export default function FullWidthGrid() {
 		<div>
 			<div className={classes.root}>
 				<h3 id="provider-head">
-					Select services offered by <strong>Provider’s Name</strong>
+					Select services offered by your <strong>providers</strong>
 				</h3>
 				<br />
 				<Grid container spacing={8} style={{ margin: 'auto auto', display: 'block', maxWidth: '600px' }}>

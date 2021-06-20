@@ -5,9 +5,7 @@ import './styles/App.css';
 import Stepper from './components/Stepper';
 import ProviderTable from './components/ProviderTable';
 import ServiceTable from './components/ServiceTable';
-import Home from './components/congratulation';
-
-import Test from './components/test';
+import Home from './components/Homepage'
 
 
 function App() {
@@ -17,7 +15,6 @@ function App() {
 				<Switch>
 					<Route exact={true} path="/">
 						<Home />
-						{/* <Test/> */}
 					</Route>
 					<Route exact={true} path="/process">
 						<Stepper />
@@ -32,7 +29,7 @@ function App() {
 				<br />
 				<br />
 				<br />
-				<ul>
+				{/* <ul>
 					<li>
 						<Link to="/">Home</Link>
 					</li>
@@ -45,7 +42,7 @@ function App() {
 					<li>
 						<Link to="/s_table">S_Table</Link>
 					</li>
-				</ul>
+				</ul> */}
 			</div>
 		</Router>
 	);

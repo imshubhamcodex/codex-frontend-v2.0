@@ -37,7 +37,7 @@ export default function BasicTextFields() {
 			type: actions.UPDATE_ORGANIZATION,
 			payload: {
 				organization: {
-					id: Math.floor(1000000 + Math.random() * 900000),
+					id: Math.floor(100000 + Math.random() * 90000),
 					name: name,
 					location: loc,
 				},

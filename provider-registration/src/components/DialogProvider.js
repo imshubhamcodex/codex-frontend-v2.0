@@ -71,7 +71,6 @@ export default function ResponsiveDialog(props) {
 
 			setOpen(true);
 		}
-		console.log(props.ID);
 	}, [props.ID.PID]);
 
 	const handleClose = () => {
